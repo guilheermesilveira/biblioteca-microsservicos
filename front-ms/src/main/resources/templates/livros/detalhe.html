@@ -5,7 +5,7 @@
     <div class="page-header">
         <div>
             <span class="page-eyebrow">Detalhe do livro</span>
-            <h1 th:text="${livro.titulo}">Titulo</h1>
+            <h1 th:text="${livro.titulo}">Título</h1>
             <p class="page-subtitle" th:text="${autorNome}">Autor</p>
         </div>
         <div class="header-actions">
@@ -26,7 +26,7 @@
             <dd>
                 <span class="status-badge"
                       th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
-                      th:text="${livro.disponivel} ? 'Disponivel' : 'Indisponivel'">Disponivel</span>
+                      th:text="${livro.disponivel} ? 'Disponível' : 'Indisponível'">Disponível</span>
             </dd>
         </div>
         <div>
@@ -34,23 +34,23 @@
             <dd th:text="${livro.id}">1</dd>
         </div>
         <div>
-            <dt>Titulo</dt>
-            <dd th:text="${livro.titulo}">Titulo</dd>
+            <dt>Título</dt>
+            <dd th:text="${livro.titulo}">Título</dd>
         </div>
         <div>
-            <dt>Genero</dt>
-            <dd th:text="${livro.genero}">Genero</dd>
+            <dt>Gênero</dt>
+            <dd th:text="${livro.genero}">Gênero</dd>
         </div>
         <div>
-            <dt>Ano de publicacao</dt>
+            <dt>Ano de publicação</dt>
             <dd th:text="${livro.anoPublicacao}">2000</dd>
         </div>
         <div>
-            <dt>Disponivel</dt>
+            <dt>Disponível</dt>
             <dd>
                 <span class="status-badge"
                       th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
-                      th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
+                      th:text="${livro.disponivel} ? 'Sim' : 'Não'">Sim</span>
             </dd>
         </div>
         <div>

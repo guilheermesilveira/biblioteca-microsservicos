@@ -17,7 +17,7 @@
     <div th:if="${apiErrors}" class="alert app-alert alert-danger" role="alert">
         <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
         <div>
-        <div class="fw-semibold mb-1">A API retornou erros de validacao:</div>
+        <div class="fw-semibold mb-1">A API retornou erros de validação:</div>
         <ul class="mb-0">
             <li th:each="erroApi : ${apiErrors}" th:text="${erroApi.key + ': ' + erroApi.value}">Erro</li>
         </ul>

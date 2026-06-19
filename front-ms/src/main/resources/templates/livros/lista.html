@@ -4,7 +4,7 @@
 <section>
     <div class="page-header">
         <div>
-            <span class="page-eyebrow">Catalogo</span>
+            <span class="page-eyebrow">Catálogo</span>
             <h1>Livros</h1>
             <p class="page-subtitle">
                 <span th:text="${#lists.size(livros)}">0</span>
@@ -28,13 +28,13 @@
            th:classappend="${filtroDisponivel == true} ? ' is-active success' : ''"
            th:href="@{/livros(disponivel=true)}">
             <i class="bi bi-check2-circle" aria-hidden="true"></i>
-            <span>Disponiveis</span>
+            <span>Disponíveis</span>
         </a>
         <a class="filter-pill"
            th:classappend="${filtroDisponivel == false} ? ' is-active muted' : ''"
            th:href="@{/livros(disponivel=false)}">
             <i class="bi bi-slash-circle" aria-hidden="true"></i>
-            <span>Indisponiveis</span>
+            <span>Indisponíveis</span>
         </a>
     </div>
 
@@ -42,12 +42,12 @@
         <table class="table table-hover align-middle mb-0">
             <thead>
             <tr>
-                <th>Titulo</th>
-                <th>Genero</th>
+                <th>Título</th>
+                <th>Gênero</th>
                 <th>Ano</th>
-                <th>Disponivel</th>
+                <th>Disponível</th>
                 <th>Autor</th>
-                <th class="text-end">Acoes</th>
+                <th class="text-end">Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -63,12 +63,12 @@
                 <td class="fw-semibold" data-label="Titulo">
                     <a class="table-title-link" th:href="@{/livros/{id}(id=${livro.id})}" th:text="${livro.titulo}">Titulo</a>
                 </td>
-                <td data-label="Genero" th:text="${livro.genero}">Genero</td>
+                <td data-label="Genero" th:text="${livro.genero}">Gênero</td>
                 <td data-label="Ano" th:text="${livro.anoPublicacao}">2000</td>
                 <td data-label="Disponivel">
                     <span class="status-badge"
                           th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
-                          th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
+                          th:text="${livro.disponivel} ? 'Sim' : 'Não'">Sim</span>
                 </td>
                 <td class="author-cell"
                     data-label="Autor"

@@ -17,7 +17,7 @@
     <div th:if="${apiErrors}" class="alert app-alert alert-danger" role="alert">
         <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
         <div>
-        <div class="fw-semibold mb-1">A API retornou erros de validacao:</div>
+        <div class="fw-semibold mb-1">A API retornou erros de validação:</div>
         <ul class="mb-0">
             <li th:each="erroApi : ${apiErrors}" th:text="${erroApi.key + ': ' + erroApi.value}">Erro</li>
         </ul>
@@ -34,14 +34,14 @@
         </div>
 
         <div class="field-group">
-            <label for="titulo" class="form-label">Titulo</label>
+            <label for="titulo" class="form-label">Título</label>
             <input id="titulo" type="text" class="form-control" th:field="*{titulo}"
                    th:classappend="${#fields.hasErrors('titulo')} ? ' is-invalid'">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
         </div>
 
         <div class="field-group">
-            <label for="genero" class="form-label">Genero</label>
+            <label for="genero" class="form-label">Gênero</label>
             <input id="genero" type="text" class="form-control" th:field="*{genero}"
                    th:classappend="${#fields.hasErrors('genero')} ? ' is-invalid'">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="field-group">
-                <label for="anoPublicacao" class="form-label">Ano de publicacao</label>
+                <label for="anoPublicacao" class="form-label">Ano de publicação</label>
                 <input id="anoPublicacao" type="number" min="1" class="form-control" th:field="*{anoPublicacao}"
                        th:classappend="${#fields.hasErrors('anoPublicacao')} ? ' is-invalid'">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('anoPublicacao')}"
@@ -74,7 +74,7 @@
         <div class="form-check form-switch availability-switch">
             <input type="hidden" name="disponivel" value="false">
             <input id="disponivel" class="form-check-input" type="checkbox" th:field="*{disponivel}" value="true">
-            <label for="disponivel" class="form-check-label">Livro disponivel para emprestimo</label>
+            <label for="disponivel" class="form-check-label">Livro disponível para empréstimo</label>
         </div>
 
         <div class="form-actions">
