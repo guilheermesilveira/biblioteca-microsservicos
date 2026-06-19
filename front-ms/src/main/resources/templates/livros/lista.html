@@ -60,12 +60,12 @@
                 </td>
             </tr>
             <tr th:each="livro : ${livros}">
-                <td class="fw-semibold" data-label="Titulo">
+                <td class="fw-semibold" data-label="Título">
                     <a class="table-title-link" th:href="@{/livros/{id}(id=${livro.id})}" th:text="${livro.titulo}">Titulo</a>
                 </td>
-                <td data-label="Genero" th:text="${livro.genero}">Gênero</td>
+                <td data-label="Gênero" th:text="${livro.genero}">Gênero</td>
                 <td data-label="Ano" th:text="${livro.anoPublicacao}">2000</td>
-                <td data-label="Disponivel">
+                <td data-label="Disponível">
                     <span class="status-badge"
                           th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
                           th:text="${livro.disponivel} ? 'Sim' : 'Não'">Sim</span>
@@ -74,7 +74,7 @@
                     data-label="Autor"
                     th:classappend="${livro.autorNome == 'Autor removido'} ? ' author-missing' : ''"
                     th:text="${livro.autorNome}">Autor</td>
-                <td class="text-end" data-label="Acoes">
+                <td class="text-end" data-label="Ações">
                     <div class="table-actions">
                         <a class="btn btn-sm btn-soft-primary" th:href="@{/livros/{id}(id=${livro.id})}">
                             <i class="bi bi-eye" aria-hidden="true"></i>
