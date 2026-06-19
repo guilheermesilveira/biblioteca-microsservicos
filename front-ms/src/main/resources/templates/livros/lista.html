@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Livros', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1>Livros</h1>
+            <p class="text-muted mb-0">Acervo com autores resolvidos pelo microsservico de autores.</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/livros/novo}">+ Novo Livro</a>
+    </div>
+
+    <div class="filter-bar">
+        <a class="btn btn-sm"
+           th:classappend="${filtroDisponivel == null} ? 'btn-dark' : 'btn-outline-dark'"
+           th:href="@{/livros}">Todos</a>
+        <a class="btn btn-sm"
+           th:classappend="${filtroDisponivel == true} ? 'btn-success' : 'btn-outline-success'"
+           th:href="@{/livros(disponivel=true)}">Disponiveis</a>
+        <a class="btn btn-sm"
+           th:classappend="${filtroDisponivel == false} ? 'btn-secondary' : 'btn-outline-secondary'"
+           th:href="@{/livros(disponivel=false)}">Indisponiveis</a>
+    </div>
+
+    <div class="table-responsive border rounded">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+            <tr>
+                <th>Titulo</th>
+                <th>Genero</th>
+                <th>Ano</th>
+                <th>Disponivel</th>
+                <th>Autor</th>
+                <th class="text-end">Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(livros)}">
+                <td colspan="6" class="text-center text-muted py-4">Nenhum livro encontrado.</td>
+            </tr>
+            <tr th:each="livro : ${livros}">
+                <td class="fw-medium">
+                    <a th:href="@{/livros/{id}(id=${livro.id})}" th:text="${livro.titulo}">Titulo</a>
+                </td>
+                <td th:text="${livro.genero}">Genero</td>
+                <td th:text="${livro.anoPublicacao}">2000</td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${livro.disponivel} ? ' text-bg-success' : ' text-bg-secondary'"
+                          th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
+                </td>
+                <td th:text="${livro.autorNome}">Autor</td>
+                <td class="text-end">
+                    <div class="table-actions">
+                        <a class="btn btn-sm btn-outline-primary" th:href="@{/livros/{id}(id=${livro.id})}">Detalhes</a>
+                        <a class="btn btn-sm btn-outline-secondary"
+                           th:href="@{/livros/{id}/editar(id=${livro.id})}">Editar</a>
+                        <form method="post"
+                              th:action="@{/livros/{id}/excluir(id=${livro.id})}"
+                              th:attr="data-confirm-message=|Excluir o livro ${livro.titulo}?|">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</html>

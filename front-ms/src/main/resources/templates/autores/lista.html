@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Autores', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1>Autores</h1>
+            <p class="text-muted mb-0">Cadastro de autores disponiveis no acervo.</p>
+        </div>
+        <a class="btn btn-primary" th:href="@{/autores/novo}">+ Novo Autor</a>
+    </div>
+
+    <div class="table-responsive border rounded">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+            <tr>
+                <th>Nome</th>
+                <th>Nacionalidade</th>
+                <th>Ano de nascimento</th>
+                <th class="text-end">Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(autores)}">
+                <td colspan="4" class="text-center text-muted py-4">Nenhum autor cadastrado.</td>
+            </tr>
+            <tr th:each="autor : ${autores}">
+                <td class="fw-medium" th:text="${autor.nome}">Nome</td>
+                <td th:text="${autor.nacionalidade}">Nacionalidade</td>
+                <td th:text="${autor.anoNascimento}">1900</td>
+                <td class="text-end">
+                    <div class="table-actions">
+                        <a class="btn btn-sm btn-outline-secondary"
+                           th:href="@{/autores/{id}/editar(id=${autor.id})}">Editar</a>
+                        <form method="post"
+                              th:action="@{/autores/{id}/excluir(id=${autor.id})}"
+                              th:attr="data-confirm-message=|Excluir o autor ${autor.nome}?|">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</html>

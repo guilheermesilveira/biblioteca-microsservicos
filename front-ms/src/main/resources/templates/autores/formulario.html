@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(${modoEdicao} ? 'Editar Autor' : 'Novo Autor', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1 th:text="${modoEdicao} ? 'Editar autor' : 'Novo autor'">Autor</h1>
+            <p class="text-muted mb-0">Preencha os dados principais do autor.</p>
+        </div>
+        <a class="btn btn-outline-secondary" th:href="@{/autores}">Voltar</a>
+    </div>
+
+    <div th:if="${apiErrors}" class="alert alert-danger" role="alert">
+        <div class="fw-semibold mb-1">A API retornou erros de validacao:</div>
+        <ul class="mb-0">
+            <li th:each="erroApi : ${apiErrors}" th:text="${erroApi.key + ': ' + erroApi.value}">Erro</li>
+        </ul>
+    </div>
+
+    <form class="form-panel"
+          method="post"
+          th:object="${autorForm}"
+          th:action="${modoEdicao} ? @{/autores/{id}(id=${autorId})} : @{/autores}">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input id="nome" type="text" class="form-control" th:field="*{nome}"
+                   th:classappend="${#fields.hasErrors('nome')} ? ' is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nacionalidade" class="form-label">Nacionalidade</label>
+            <input id="nacionalidade" type="text" class="form-control" th:field="*{nacionalidade}"
+                   th:classappend="${#fields.hasErrors('nacionalidade')} ? ' is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nacionalidade')}"
+                 th:errors="*{nacionalidade}"></div>
+        </div>
+
+        <div class="mb-4">
+            <label for="anoNascimento" class="form-label">Ano de nascimento</label>
+            <input id="anoNascimento" type="number" min="1" class="form-control" th:field="*{anoNascimento}"
+                   th:classappend="${#fields.hasErrors('anoNascimento')} ? ' is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('anoNascimento')}"
+                 th:errors="*{anoNascimento}"></div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" th:text="${modoEdicao} ? 'Atualizar' : 'Salvar'">Salvar</button>
+            <a class="btn btn-outline-secondary" th:href="@{/autores}">Cancelar</a>
+        </div>
+    </form>
+</section>
+</html>

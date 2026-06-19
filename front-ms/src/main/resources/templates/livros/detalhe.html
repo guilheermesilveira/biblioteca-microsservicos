@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Detalhe do Livro', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1 th:text="${livro.titulo}">Titulo</h1>
+            <p class="text-muted mb-0">Detalhes completos do livro selecionado.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary" th:href="@{/livros}">Voltar para a lista</a>
+            <a class="btn btn-primary" th:href="@{/livros/{id}/editar(id=${livro.id})}">Editar</a>
+        </div>
+    </div>
+
+    <dl class="detail-list">
+        <div>
+            <dt>ID</dt>
+            <dd th:text="${livro.id}">1</dd>
+        </div>
+        <div>
+            <dt>Titulo</dt>
+            <dd th:text="${livro.titulo}">Titulo</dd>
+        </div>
+        <div>
+            <dt>Genero</dt>
+            <dd th:text="${livro.genero}">Genero</dd>
+        </div>
+        <div>
+            <dt>Ano de publicacao</dt>
+            <dd th:text="${livro.anoPublicacao}">2000</dd>
+        </div>
+        <div>
+            <dt>Disponivel</dt>
+            <dd>
+                <span class="badge"
+                      th:classappend="${livro.disponivel} ? ' text-bg-success' : ' text-bg-secondary'"
+                      th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
+            </dd>
+        </div>
+        <div>
+            <dt>Autor ID</dt>
+            <dd th:text="${livro.autorId}">1</dd>
+        </div>
+        <div>
+            <dt>Autor</dt>
+            <dd th:text="${autorNome}">Autor</dd>
+        </div>
+    </dl>
+</section>
+</html>

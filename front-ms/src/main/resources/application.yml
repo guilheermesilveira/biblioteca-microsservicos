@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: front-ms
+
+biblioteca:
+  api:
+    autores-base-url: ${BIBLIOTECA_API_AUTORES_BASE_URL:http://localhost:8082/api/autores}
+    livros-base-url: ${BIBLIOTECA_API_LIVROS_BASE_URL:http://localhost:8081/api/livros}

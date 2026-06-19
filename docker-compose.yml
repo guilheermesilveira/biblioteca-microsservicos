@@ -1,0 +1,86 @@
+services:
+  postgres-autores:
+    image: postgres:16-alpine
+    container_name: biblioteca-postgres-autores
+    environment:
+      POSTGRES_DB: db_autores
+      POSTGRES_USER: biblioteca
+      POSTGRES_PASSWORD: biblioteca
+    volumes:
+      - postgres-autores-data:/var/lib/postgresql/data
+      - ./docker/postgres-autores:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U biblioteca -d db_autores"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  postgres-livros:
+    image: postgres:16-alpine
+    container_name: biblioteca-postgres-livros
+    environment:
+      POSTGRES_DB: db_livros
+      POSTGRES_USER: biblioteca
+      POSTGRES_PASSWORD: biblioteca
+    volumes:
+      - postgres-livros-data:/var/lib/postgresql/data
+      - ./docker/postgres-livros:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U biblioteca -d db_livros"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  autor-ms:
+    build:
+      context: .
+      dockerfile: autor-ms/Dockerfile
+    container_name: biblioteca-autor-ms
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-autores:5432/db_autores
+      SPRING_DATASOURCE_USERNAME: biblioteca
+      SPRING_DATASOURCE_PASSWORD: biblioteca
+    depends_on:
+      postgres-autores:
+        condition: service_healthy
+
+  livro-ms:
+    build:
+      context: .
+      dockerfile: livro-ms/Dockerfile
+    container_name: biblioteca-livro-ms
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-livros:5432/db_livros
+      SPRING_DATASOURCE_USERNAME: biblioteca
+      SPRING_DATASOURCE_PASSWORD: biblioteca
+    depends_on:
+      postgres-livros:
+        condition: service_healthy
+
+  front-ms:
+    build:
+      context: .
+      dockerfile: front-ms/Dockerfile
+    container_name: biblioteca-front-ms
+    environment:
+      BIBLIOTECA_API_AUTORES_BASE_URL: http://autor-ms:8082/api/autores
+      BIBLIOTECA_API_LIVROS_BASE_URL: http://livro-ms:8081/api/livros
+    depends_on:
+      - autor-ms
+      - livro-ms
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: biblioteca-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - front-ms
+      - autor-ms
+      - livro-ms
+
+volumes:
+  postgres-autores-data:
+  postgres-livros-data:

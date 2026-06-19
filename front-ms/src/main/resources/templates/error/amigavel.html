@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(${titulo}, ~{::section})}">
+<section class="error-state">
+    <h1 th:text="${titulo}">Erro</h1>
+    <p class="text-muted" th:text="${mensagem}">Nao foi possivel completar a operacao.</p>
+    <a class="btn btn-primary" th:href="@{/livros}">Voltar para livros</a>
+</section>
+</html>

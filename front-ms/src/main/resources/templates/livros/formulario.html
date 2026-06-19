@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(${modoEdicao} ? 'Editar Livro' : 'Novo Livro', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1 th:text="${modoEdicao} ? 'Editar livro' : 'Novo livro'">Livro</h1>
+            <p class="text-muted mb-0">Selecione um autor existente antes de salvar.</p>
+        </div>
+        <a class="btn btn-outline-secondary" th:href="@{/livros}">Voltar</a>
+    </div>
+
+    <div th:if="${apiErrors}" class="alert alert-danger" role="alert">
+        <div class="fw-semibold mb-1">A API retornou erros de validacao:</div>
+        <ul class="mb-0">
+            <li th:each="erroApi : ${apiErrors}" th:text="${erroApi.key + ': ' + erroApi.value}">Erro</li>
+        </ul>
+    </div>
+
+    <form class="form-panel"
+          method="post"
+          th:object="${livroForm}"
+          th:action="${modoEdicao} ? @{/livros/{id}(id=${livroId})} : @{/livros}">
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Titulo</label>
+            <input id="titulo" type="text" class="form-control" th:field="*{titulo}"
+                   th:classappend="${#fields.hasErrors('titulo')} ? ' is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="genero" class="form-label">Genero</label>
+            <input id="genero" type="text" class="form-control" th:field="*{genero}"
+                   th:classappend="${#fields.hasErrors('genero')} ? ' is-invalid'">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="anoPublicacao" class="form-label">Ano de publicacao</label>
+                <input id="anoPublicacao" type="number" min="1" class="form-control" th:field="*{anoPublicacao}"
+                       th:classappend="${#fields.hasErrors('anoPublicacao')} ? ' is-invalid'">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('anoPublicacao')}"
+                     th:errors="*{anoPublicacao}"></div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="autorId" class="form-label">Autor</label>
+                <select id="autorId" class="form-select" th:field="*{autorId}"
+                        th:classappend="${#fields.hasErrors('autorId')} ? ' is-invalid'">
+                    <option value="">Selecione</option>
+                    <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nome}">Autor</option>
+                </select>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('autorId')}" th:errors="*{autorId}"></div>
+            </div>
+        </div>
+
+        <div class="form-check form-switch mb-4">
+            <input type="hidden" name="disponivel" value="false">
+            <input id="disponivel" class="form-check-input" type="checkbox" th:field="*{disponivel}" value="true">
+            <label for="disponivel" class="form-check-label">Livro disponivel para emprestimo</label>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" th:text="${modoEdicao} ? 'Atualizar' : 'Salvar'">Salvar</button>
+            <a class="btn btn-outline-secondary" th:href="@{/livros}">Cancelar</a>
+        </div>
+    </form>
+</section>
+</html>
