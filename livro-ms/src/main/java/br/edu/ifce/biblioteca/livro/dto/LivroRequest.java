@@ -6,21 +6,21 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record LivroRequest(
-        @NotBlank(message = "Titulo e obrigatorio")
-        @Size(max = 150, message = "Titulo deve ter no maximo 150 caracteres")
+        @NotBlank(message = "Título é obrigatório")
+        @Size(max = 150, message = "Título deve ter no máximo 150 caracteres")
         String titulo,
 
-        @NotBlank(message = "Genero e obrigatorio")
-        @Size(max = 60, message = "Genero deve ter no maximo 60 caracteres")
+        @NotBlank(message = "Gênero é obrigatório")
+        @Size(max = 60, message = "Gênero deve ter no máximo 60 caracteres")
         String genero,
 
-        @NotNull(message = "Ano de publicacao e obrigatorio")
-        @Positive(message = "Ano de publicacao deve ser positivo")
+        @NotNull(message = "Ano de publicação é obrigatório")
+        @Positive(message = "Ano de publicação deve ser positivo")
         Integer anoPublicacao,
 
         Boolean disponivel,
 
-        @NotNull(message = "Autor e obrigatorio")
+        @NotNull(message = "Autor é obrigatório")
         Long autorId
 ) {
 
