@@ -22,7 +22,7 @@ public class ApiErrorParser {
         try {
             JsonNode root = objectMapper.readTree(exception.getResponseBodyAsByteArray());
             if (root.hasNonNull("erro")) {
-                return root.get("erro").asText();
+                return root.get("erro").asString();
             }
         } catch (JacksonException ignored) {
             return fallback;
@@ -37,12 +37,12 @@ public class ApiErrorParser {
             if (root.has("erros")) {
                 JsonNode errorNode = root.get("erros");
                 for (Map.Entry<String, JsonNode> entry : errorNode.properties()) {
-                    errors.put(entry.getKey(), entry.getValue().asText());
+                    errors.put(entry.getKey(), entry.getValue().asString());
                 }
                 return errors;
             }
             if (root.hasNonNull("erro")) {
-                errors.put("geral", root.get("erro").asText());
+                errors.put("geral", root.get("erro").asString());
             }
         } catch (JacksonException ignored) {
             errors.put("geral", "Nao foi possivel processar o erro retornado pela API.");
