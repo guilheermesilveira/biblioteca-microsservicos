@@ -109,7 +109,7 @@ public class AutorWebController {
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             autorFrontService.excluir(id);
-            redirectAttributes.addFlashAttribute("sucesso", "Autor excluido com sucesso.");
+            redirectAttributes.addFlashAttribute("sucesso", "Autor excluído com sucesso.");
         } catch (ApiNotFoundException | ApiUnavailableException exception) {
             redirectAttributes.addFlashAttribute("erro", exception.getMessage());
         }

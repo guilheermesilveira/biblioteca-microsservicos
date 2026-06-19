@@ -143,7 +143,7 @@ public class LivroWebController {
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             livroFrontService.excluir(id);
-            redirectAttributes.addFlashAttribute("sucesso", "Livro excluido com sucesso.");
+            redirectAttributes.addFlashAttribute("sucesso", "Livro excluído com sucesso.");
         } catch (ApiNotFoundException | ApiUnavailableException exception) {
             redirectAttributes.addFlashAttribute("erro", exception.getMessage());
         }
