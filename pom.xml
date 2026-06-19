@@ -26,5 +26,6 @@
     <properties>
         <java.version>21</java.version>
         <webjars-bootstrap.version>5.3.3</webjars-bootstrap.version>
+        <webjars-bootstrap-icons.version>1.11.3</webjars-bootstrap-icons.version>
     </properties>
 </project>

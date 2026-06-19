@@ -4,16 +4,31 @@
 <section>
     <div class="page-header">
         <div>
+            <span class="page-eyebrow">Detalhe do livro</span>
             <h1 th:text="${livro.titulo}">Titulo</h1>
-            <p class="text-muted mb-0">Detalhes completos do livro selecionado.</p>
+            <p class="page-subtitle" th:text="${autorNome}">Autor</p>
         </div>
-        <div class="d-flex gap-2">
-            <a class="btn btn-outline-secondary" th:href="@{/livros}">Voltar para a lista</a>
-            <a class="btn btn-primary" th:href="@{/livros/{id}/editar(id=${livro.id})}">Editar</a>
+        <div class="header-actions">
+            <a class="btn btn-outline-secondary btn-action" th:href="@{/livros}">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                <span>Voltar</span>
+            </a>
+            <a class="btn btn-primary btn-action" th:href="@{/livros/{id}/editar(id=${livro.id})}">
+                <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                <span>Editar</span>
+            </a>
         </div>
     </div>
 
     <dl class="detail-list">
+        <div class="detail-list-title">
+            <dt>Resumo</dt>
+            <dd>
+                <span class="status-badge"
+                      th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
+                      th:text="${livro.disponivel} ? 'Disponivel' : 'Indisponivel'">Disponivel</span>
+            </dd>
+        </div>
         <div>
             <dt>ID</dt>
             <dd th:text="${livro.id}">1</dd>
@@ -33,8 +48,8 @@
         <div>
             <dt>Disponivel</dt>
             <dd>
-                <span class="badge"
-                      th:classappend="${livro.disponivel} ? ' text-bg-success' : ' text-bg-secondary'"
+                <span class="status-badge"
+                      th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
                       th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
             </dd>
         </div>
@@ -44,7 +59,8 @@
         </div>
         <div>
             <dt>Autor</dt>
-            <dd th:text="${autorNome}">Autor</dd>
+            <dd th:classappend="${autorNome == 'Autor removido'} ? ' author-missing' : ''"
+                th:text="${autorNome}">Autor</dd>
         </div>
     </dl>
 </section>

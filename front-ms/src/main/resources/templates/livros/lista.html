@@ -4,27 +4,43 @@
 <section>
     <div class="page-header">
         <div>
+            <span class="page-eyebrow">Catalogo</span>
             <h1>Livros</h1>
-            <p class="text-muted mb-0">Acervo com autores resolvidos pelo microsservico de autores.</p>
+            <p class="page-subtitle">
+                <span th:text="${#lists.size(livros)}">0</span>
+                <span th:text="${#lists.size(livros) == 1} ? 'registro encontrado' : 'registros encontrados'">registros encontrados</span>
+            </p>
         </div>
-        <a class="btn btn-primary" th:href="@{/livros/novo}">+ Novo Livro</a>
+        <a class="btn btn-primary btn-action" th:href="@{/livros/novo}">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i>
+            <span>Novo Livro</span>
+        </a>
     </div>
 
-    <div class="filter-bar">
-        <a class="btn btn-sm"
-           th:classappend="${filtroDisponivel == null} ? 'btn-dark' : 'btn-outline-dark'"
-           th:href="@{/livros}">Todos</a>
-        <a class="btn btn-sm"
-           th:classappend="${filtroDisponivel == true} ? 'btn-success' : 'btn-outline-success'"
-           th:href="@{/livros(disponivel=true)}">Disponiveis</a>
-        <a class="btn btn-sm"
-           th:classappend="${filtroDisponivel == false} ? 'btn-secondary' : 'btn-outline-secondary'"
-           th:href="@{/livros(disponivel=false)}">Indisponiveis</a>
+    <div class="filter-bar" aria-label="Filtro de disponibilidade">
+        <a class="filter-pill"
+           th:classappend="${filtroDisponivel == null} ? ' is-active' : ''"
+           th:href="@{/livros}">
+            <i class="bi bi-grid" aria-hidden="true"></i>
+            <span>Todos</span>
+        </a>
+        <a class="filter-pill"
+           th:classappend="${filtroDisponivel == true} ? ' is-active success' : ''"
+           th:href="@{/livros(disponivel=true)}">
+            <i class="bi bi-check2-circle" aria-hidden="true"></i>
+            <span>Disponiveis</span>
+        </a>
+        <a class="filter-pill"
+           th:classappend="${filtroDisponivel == false} ? ' is-active muted' : ''"
+           th:href="@{/livros(disponivel=false)}">
+            <i class="bi bi-slash-circle" aria-hidden="true"></i>
+            <span>Indisponiveis</span>
+        </a>
     </div>
 
-    <div class="table-responsive border rounded">
+    <div class="table-panel table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
+            <thead>
             <tr>
                 <th>Titulo</th>
                 <th>Genero</th>
@@ -35,30 +51,47 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${#lists.isEmpty(livros)}">
-                <td colspan="6" class="text-center text-muted py-4">Nenhum livro encontrado.</td>
+            <tr class="empty-row" th:if="${#lists.isEmpty(livros)}">
+                <td colspan="6">
+                    <div class="empty-state">
+                        <i class="bi bi-journal-x" aria-hidden="true"></i>
+                        <strong>Nenhum livro encontrado.</strong>
+                    </div>
+                </td>
             </tr>
             <tr th:each="livro : ${livros}">
-                <td class="fw-medium">
-                    <a th:href="@{/livros/{id}(id=${livro.id})}" th:text="${livro.titulo}">Titulo</a>
+                <td class="fw-semibold" data-label="Titulo">
+                    <a class="table-title-link" th:href="@{/livros/{id}(id=${livro.id})}" th:text="${livro.titulo}">Titulo</a>
                 </td>
-                <td th:text="${livro.genero}">Genero</td>
-                <td th:text="${livro.anoPublicacao}">2000</td>
-                <td>
-                    <span class="badge"
-                          th:classappend="${livro.disponivel} ? ' text-bg-success' : ' text-bg-secondary'"
+                <td data-label="Genero" th:text="${livro.genero}">Genero</td>
+                <td data-label="Ano" th:text="${livro.anoPublicacao}">2000</td>
+                <td data-label="Disponivel">
+                    <span class="status-badge"
+                          th:classappend="${livro.disponivel} ? ' available' : ' unavailable'"
                           th:text="${livro.disponivel} ? 'Sim' : 'Nao'">Sim</span>
                 </td>
-                <td th:text="${livro.autorNome}">Autor</td>
-                <td class="text-end">
+                <td class="author-cell"
+                    data-label="Autor"
+                    th:classappend="${livro.autorNome == 'Autor removido'} ? ' author-missing' : ''"
+                    th:text="${livro.autorNome}">Autor</td>
+                <td class="text-end" data-label="Acoes">
                     <div class="table-actions">
-                        <a class="btn btn-sm btn-outline-primary" th:href="@{/livros/{id}(id=${livro.id})}">Detalhes</a>
-                        <a class="btn btn-sm btn-outline-secondary"
-                           th:href="@{/livros/{id}/editar(id=${livro.id})}">Editar</a>
+                        <a class="btn btn-sm btn-soft-primary" th:href="@{/livros/{id}(id=${livro.id})}">
+                            <i class="bi bi-eye" aria-hidden="true"></i>
+                            <span>Detalhes</span>
+                        </a>
+                        <a class="btn btn-sm btn-soft-secondary"
+                           th:href="@{/livros/{id}/editar(id=${livro.id})}">
+                            <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                            <span>Editar</span>
+                        </a>
                         <form method="post"
                               th:action="@{/livros/{id}/excluir(id=${livro.id})}"
                               th:attr="data-confirm-message=|Excluir o livro ${livro.titulo}?|">
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <button type="submit" class="btn btn-sm btn-soft-danger">
+                                <i class="bi bi-trash3" aria-hidden="true"></i>
+                                <span>Excluir</span>
+                            </button>
                         </form>
                     </div>
                 </td>

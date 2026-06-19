@@ -2,8 +2,14 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(${titulo}, ~{::section})}">
 <section class="error-state">
+    <div class="error-icon" aria-hidden="true">
+        <i class="bi bi-exclamation-diamond"></i>
+    </div>
     <h1 th:text="${titulo}">Erro</h1>
-    <p class="text-muted" th:text="${mensagem}">Nao foi possivel completar a operacao.</p>
-    <a class="btn btn-primary" th:href="@{/livros}">Voltar para livros</a>
+    <p th:text="${mensagem}">Nao foi possivel completar a operacao.</p>
+    <a class="btn btn-primary btn-action" th:href="@{/livros}">
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+        <span>Voltar para livros</span>
+    </a>
 </section>
 </html>
