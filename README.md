@@ -1,6 +1,6 @@
-# Sistema de Biblioteca em Microsservicos
+# Sistema de Biblioteca em Microsserviços
 
-Trabalho final de Desenvolvimento Web com Java: sistema de biblioteca em arquitetura de microsservicos com Spring Boot, Thymeleaf, PostgreSQL, Docker Compose e Nginx.
+Sistema de biblioteca em arquitetura de Microsserviços com Spring Boot, Thymeleaf, PostgreSQL, Docker Compose e Nginx.
 
 ## Arquitetura
 
@@ -11,7 +11,7 @@ Trabalho final de Desenvolvimento Web com Java: sistema de biblioteca em arquite
 - `postgres-autores`: banco independente `db_autores`.
 - `postgres-livros`: banco independente `db_livros`.
 
-O `livro-ms` armazena somente `autorId`. Ele nao consulta o `autor-ms` e nao possui chave estrangeira entre bancos. O nome do autor e resolvido pelo `front-ms` via HTTP.
+O `livro-ms` armazena somente `autorId`. Ele não consulta o `autor-ms` e não possui chave estrangeira entre bancos. O nome do autor é resolvido pelo `front-ms` via HTTP.
 
 ## Como executar
 
@@ -21,7 +21,7 @@ Na raiz do projeto:
 docker compose up --build
 ```
 
-Depois da inicializacao:
+Depois da inicialização:
 
 - Interface web: `http://localhost`
 - API de livros: `http://localhost/api/livros`
@@ -45,25 +45,25 @@ Para apagar containers e volumes dos bancos:
 docker compose down -v
 ```
 
-## Persistencia e carga inicial
+## Persistência e carga inicial
 
-Os volumes `postgres-autores-data` e `postgres-livros-data` preservam os dados entre reinicializacoes. Os scripts em `docker/postgres-autores` e `docker/postgres-livros` criam as tabelas e inserem dados iniciais apenas na primeira criacao dos volumes.
+Os volumes `postgres-autores-data` e `postgres-livros-data` preservam os dados entre reinicializações. Os scripts em `docker/postgres-autores` e `docker/postgres-livros` criam as tabelas e inserem dados iniciais apenas na primeira criação dos volumes.
 
 ## Rotas web
 
 - `GET /autores`: lista autores.
-- `GET /autores/novo`: formulario de cadastro de autor.
-- `GET /autores/{id}/editar`: formulario de edicao de autor.
+- `GET /autores/novo`: formulário de cadastro de autor.
+- `GET /autores/{id}/editar`: formulário de edição de autor.
 - `POST /autores`: cria autor.
 - `POST /autores/{id}`: atualiza autor.
-- `POST /autores/{id}/excluir`: exclui autor.
+- `POST /autores/{id}/excluir`: excluí autor.
 - `GET /livros`: lista livros, com filtro opcional `?disponivel=true` ou `?disponivel=false`.
-- `GET /livros/novo`: formulario de cadastro de livro.
+- `GET /livros/novo`: formulário de cadastro de livro.
 - `GET /livros/{id}`: detalhe do livro.
-- `GET /livros/{id}/editar`: formulario de edicao de livro.
+- `GET /livros/{id}/editar`: formulário de edição de livro.
 - `POST /livros`: cria livro.
 - `POST /livros/{id}`: atualiza livro.
-- `POST /livros/{id}/excluir`: exclui livro.
+- `POST /livros/{id}/excluir`: excluí livro.
 
 ## Endpoints REST
 
