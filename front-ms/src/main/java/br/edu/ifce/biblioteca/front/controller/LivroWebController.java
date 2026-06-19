@@ -70,11 +70,11 @@ public class LivroWebController {
             model.addAttribute("autorNome", livroFrontService.resolverNomeAutor(livro.autorId()));
             return "livros/detalhe";
         } catch (ApiNotFoundException exception) {
-            model.addAttribute("titulo", "Livro nao encontrado");
+            model.addAttribute("titulo", "Livro não encontrado");
             model.addAttribute("mensagem", exception.getMessage());
             return "error/amigavel";
         } catch (ApiUnavailableException exception) {
-            model.addAttribute("titulo", "Servico indisponivel");
+            model.addAttribute("titulo", "Serviço indisponível");
             model.addAttribute("mensagem", exception.getMessage());
             return "error/amigavel";
         }
@@ -99,7 +99,7 @@ public class LivroWebController {
             prepararFormulario(model, livroForm, false, null);
             return "livros/formulario";
         } catch (ApiNotFoundException exception) {
-            bindingResult.rejectValue("autorId", "autorId", "Autor selecionado nao foi encontrado.");
+            bindingResult.rejectValue("autorId", "autorId", "Autor selecionado não foi encontrado.");
             prepararFormulario(model, livroForm, false, null);
             return "livros/formulario";
         } catch (ApiUnavailableException exception) {

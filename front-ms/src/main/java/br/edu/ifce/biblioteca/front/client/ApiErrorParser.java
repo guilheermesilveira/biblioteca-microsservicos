@@ -45,7 +45,7 @@ public class ApiErrorParser {
                 errors.put("geral", root.get("erro").asString());
             }
         } catch (JacksonException ignored) {
-            errors.put("geral", "Nao foi possivel processar o erro retornado pela API.");
+            errors.put("geral", "Não foi possível processar o erro retornado pela API.");
         }
         if (errors.isEmpty()) {
             errors.put("geral", "A API rejeitou os dados enviados.");

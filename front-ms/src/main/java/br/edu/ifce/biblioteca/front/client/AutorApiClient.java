@@ -29,7 +29,7 @@ public class AutorApiClient {
                     .body(new ParameterizedTypeReference<>() {
                     });
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel carregar os autores.", exception);
+            throw new ApiUnavailableException("Não foi possível carregar os autores.", exception);
         }
     }
 
@@ -41,11 +41,11 @@ public class AutorApiClient {
                     .body(AutorDto.class);
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel buscar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível buscar o autor.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel buscar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível buscar o autor.", exception);
         }
     }
 
@@ -59,9 +59,9 @@ public class AutorApiClient {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(400))) {
                 throw new ApiValidationException(errorParser.extractValidationErrors(exception));
             }
-            throw new ApiUnavailableException("Nao foi possivel cadastrar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível cadastrar o autor.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel cadastrar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível cadastrar o autor.", exception);
         }
     }
 
@@ -77,11 +77,11 @@ public class AutorApiClient {
                 throw new ApiValidationException(errorParser.extractValidationErrors(exception));
             }
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel atualizar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível atualizar o autor.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel atualizar o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível atualizar o autor.", exception);
         }
     }
 
@@ -93,11 +93,11 @@ public class AutorApiClient {
                     .toBodilessEntity();
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Autor não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel excluir o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível excluir o autor.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel excluir o autor.", exception);
+            throw new ApiUnavailableException("Não foi possível excluir o autor.", exception);
         }
     }
 }

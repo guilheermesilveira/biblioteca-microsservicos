@@ -7,7 +7,7 @@ public class ApiValidationException extends RuntimeException {
     private final Map<String, String> errors;
 
     public ApiValidationException(Map<String, String> errors) {
-        super("Erro de validacao da API");
+        super("Erro de validação da API");
         this.errors = errors;
     }
 

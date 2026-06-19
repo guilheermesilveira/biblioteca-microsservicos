@@ -6,14 +6,14 @@ import jakarta.validation.constraints.Positive;
 
 public class LivroForm {
 
-    @NotBlank(message = "Informe o titulo")
+    @NotBlank(message = "Informe o título")
     private String titulo;
 
-    @NotBlank(message = "Informe o genero")
+    @NotBlank(message = "Informe o gênero")
     private String genero;
 
-    @NotNull(message = "Informe o ano de publicacao")
-    @Positive(message = "O ano de publicacao deve ser positivo")
+    @NotNull(message = "Informe o ano de publicação")
+    @Positive(message = "O ano de publicação deve ser positivo")
     private Integer anoPublicacao;
 
     private Boolean disponivel = true;

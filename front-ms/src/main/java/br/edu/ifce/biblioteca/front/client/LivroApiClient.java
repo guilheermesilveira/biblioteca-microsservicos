@@ -35,7 +35,7 @@ public class LivroApiClient {
                     .body(new ParameterizedTypeReference<>() {
                     });
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel carregar os livros.", exception);
+            throw new ApiUnavailableException("Não foi possível carregar os livros.", exception);
         }
     }
 
@@ -47,11 +47,11 @@ public class LivroApiClient {
                     .body(LivroDto.class);
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel buscar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível buscar o livro.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel buscar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível buscar o livro.", exception);
         }
     }
 
@@ -65,9 +65,9 @@ public class LivroApiClient {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(400))) {
                 throw new ApiValidationException(errorParser.extractValidationErrors(exception));
             }
-            throw new ApiUnavailableException("Nao foi possivel cadastrar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível cadastrar o livro.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel cadastrar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível cadastrar o livro.", exception);
         }
     }
 
@@ -83,11 +83,11 @@ public class LivroApiClient {
                 throw new ApiValidationException(errorParser.extractValidationErrors(exception));
             }
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel atualizar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível atualizar o livro.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel atualizar o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível atualizar o livro.", exception);
         }
     }
 
@@ -99,11 +99,11 @@ public class LivroApiClient {
                     .toBodilessEntity();
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().isSameCodeAs(HttpStatusCode.valueOf(404))) {
-                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro nao encontrado."));
+                throw new ApiNotFoundException(errorParser.extractErrorMessage(exception, "Livro não encontrado."));
             }
-            throw new ApiUnavailableException("Nao foi possivel excluir o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível excluir o livro.", exception);
         } catch (RestClientException exception) {
-            throw new ApiUnavailableException("Nao foi possivel excluir o livro.", exception);
+            throw new ApiUnavailableException("Não foi possível excluir o livro.", exception);
         }
     }
 }
